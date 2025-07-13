@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pokémon Finder</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+  rel="stylesheet"
+/>
+
+<style>
+  .font-poppins {
+    font-family: 'Poppins', sans-serif;
+  }
+</style>
+</head>
+<body class="min-h-screen bg-slate-300 flex flex-col items-center p-6 font-poppins">
+
+  <h1 class="text-3xl text-center">
+    Find Pokémon
+  </h1>
+
+  <p class="text-sm text-gray-500 text-center mt-1 mb-6 max-w-md">
+    Find Pokémon by entering their type of power.
+  </p>
+
+  <div class="w-full max-w-7xl flex flex-col md:flex-row gap-8">
+
+    <!-- Form card on left -->
+    <div class="md:w-1/2 bg-white rounded-xl shadow p-8 flex flex-col gap-6 min-h-[400px]">
+      <label class="flex flex-col gap-1">
+        <span class="text-sm text-gray-600">Type</span>
+        <input
+          id="type"
+          class="border rounded p-3"
+          placeholder="Enter Type"
+        />
+      </label>
+
+      <label class="flex flex-col gap-1">
+        <span class="text-sm text-gray-600">Limit</span>
+        <input
+          id="limit"
+          type="number"
+          min="1"
+          class="border rounded p-3"
+          placeholder="Number of Pokémon"
+        />
+      </label>
+
+      <button
+        id="go"
+        class="mt-4 bg-blue-600 text-white py-3 px-11 rounded-xl hover:bg-blue-700 block mx-auto"
+      >
+        Fetch Pokémon
+      </button>
+
+      <img
+        src="pokemonImg.webp"
+        alt="Pokémon example"
+        class="mt-8 mx-auto w-100 rounded-lg "
+      />
+    </div>
+    <div
+  id="results"
+  class="md:w-1/2 bg-white rounded-xl shadow p-8
+         min-h-[600px] max-h-[600px] overflow-y-auto"
+>
+</div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
