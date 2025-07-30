@@ -27,22 +27,11 @@ function App() {
     }
   }, [firstCard, secondCard]);
 
-
   useEffect(() => {
-    if (matched.length === cards.length) {
+    if (cards.length > 0 && matched.length === cards.length) {
       setGameWon(true);
     }
-  }, [matched, cards.length]);
-
-
-  const restartGame = () => {
-    setGameWon(false);
-    setFirstCard(null);
-    setSecondCard(null);
-    setMatched([]);
-    shuffleCards();
-  };
-
+  }, [matched, cards]);
 
   const shuffleCards = () => {
     const shuffled = [...cardImages, ...cardImages]
@@ -53,14 +42,15 @@ function App() {
     setMatched([]);
     setFirstCard(null);
     setSecondCard(null);
+    setGameWon(false);
   };
 
   const handleClick = (card) => {
-    if (disable) return;
+    if (disable || card === firstCard || matched.includes(card.id)) return;
 
     if (!firstCard) {
       setFirstCard(card);
-    } else if (card.id !== firstCard.id) {
+    } else {
       setSecondCard(card);
     }
   };
@@ -74,38 +64,41 @@ function App() {
   return (
     <div className="min-h-screen relative bg-black text-white flex flex-col items-center justify-center p-4 overflow-hidden">
       <div className="gooey-top"></div>
-       <div className="gooey-bottom"></div>
+      <div className="gooey-bottom"></div>
+
       <h1
         className="text-5xl mb-10 font-extrabold tracking-wide"
-        style={{ fontFamily: 'Anton, sans-serif' }}
+        style={{ fontFamily: "Anton, sans-serif" }}
       >
         Memory Game
       </h1>
 
-      <div className="grid grid-cols-4 gap-4">
-        {gameWon && (
-          <div className="fixed inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center z-20">
-            <h2 className="text-4xl font-bold text-white mb-4">🎉 Congo! You won! 🎉</h2>
-            <button
-              onClick={restartGame}
-              className="px-6 py-2 bg-white text-black font-semibold rounded hover:bg-gray-200 transition"
-            >
-              Play Again
-            </button>
-          </div>
-        )}
+      {gameWon && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center z-20">
+          <h2 className="text-4xl font-bold text-white mb-4">🎉 Congo! You won! 🎉</h2>
+          <button
+            onClick={shuffleCards}
+            className="px-6 py-2 bg-white text-black font-semibold rounded hover:bg-gray-200 transition"
+          >
+            Play Again
+          </button>
+        </div>
+      )}
+
+      <div className="grid grid-cols-4 gap-4 z-10">
         {cards.map((card) => (
           <Card
             key={card.id}
             card={card}
             handleClick={handleClick}
-            flipped={card === firstCard || card === secondCard || matched.includes(card.id)}
+            flipped={
+              card === firstCard || card === secondCard || matched.includes(card.id)
+            }
           />
         ))}
       </div>
     </div>
   );
-
 }
 
 export default App;
