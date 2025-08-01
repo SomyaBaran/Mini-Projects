@@ -62,43 +62,44 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen relative bg-black text-white flex flex-col items-center justify-center p-4 overflow-hidden">
-      <div className="gooey-top"></div>
-      <div className="gooey-bottom"></div>
+  <div
+    className="min-h-screen relative text-white flex flex-col items-center justify-center p-4 overflow-hidden bg-cover bg-center"
+    style={{ backgroundImage: 'url("/background.png")' }}
+  >
 
-      <h1
-        className="text-5xl mb-10 font-extrabold tracking-wide"
-        style={{ fontFamily: "Anton, sans-serif" }}
-      >
-        Memory Game
-      </h1>
+    <h1
+      className="text-5xl mb-10 font-extrabold tracking-wide"
+     style={{ fontFamily: "'Permanent Marker', cursive" }}
+    >
+      Memory Game
+    </h1>
 
-      {gameWon && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center z-20">
-          <h2 className="text-4xl font-bold text-white mb-4">🎉 Congo! You won! 🎉</h2>
-          <button
-            onClick={shuffleCards}
-            className="px-6 py-2 bg-white text-black font-semibold rounded hover:bg-gray-200 transition"
-          >
-            Play Again
-          </button>
-        </div>
-      )}
-
-      <div className="grid grid-cols-4 gap-4 z-10">
-        {cards.map((card) => (
-          <Card
-            key={card.id}
-            card={card}
-            handleClick={handleClick}
-            flipped={
-              card === firstCard || card === secondCard || matched.includes(card.id)
-            }
-          />
-        ))}
+    {gameWon && (
+      <div className="fixed inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center z-20">
+        <h2 className="text-4xl font-bold text-white mb-4">🎉 Congo! You won! 🎉</h2>
+        <button
+          onClick={shuffleCards}
+          className="px-6 py-2 bg-white text-black font-semibold rounded hover:bg-gray-200 transition"
+        >
+          Play Again
+        </button>
       </div>
+    )}
+
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4 z-10">
+      {cards.map((card) => (
+        <Card
+          key={card.id}
+          card={card}
+          handleClick={handleClick}
+          flipped={
+            card === firstCard || card === secondCard || matched.includes(card.id)
+          }
+        />
+      ))}
     </div>
-  );
+  </div>
+);
 }
 
 export default App;
