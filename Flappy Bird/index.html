@@ -1,0 +1,58 @@
+<html lang="en">
+    <!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="gameCanvas" style="border: 6px solid black" width="900" height="500"></canvas>
+
+    
+</body>
+    <script>
+        async function main(){
+            let TowersX = 200;
+            const TOWER_HEIGHT = 800;
+
+            // Flapping Part
+            document.onkeydown = () => {
+                yVelocity = -50;
+            }
+
+            let canvas = document.getElementById("gameCanvas");
+            let ctx = canvas.getContext("2d");
+            let y = 0;
+            let yVelocity = 0;
+            let yAcc = 9.8;
+
+            for(let i = 0; i < 100000; i++){
+                yVelocity = yVelocity + 0.33 * yAcc;
+                y = y + yVelocity * 0.33;
+                // y = y + 1;
+                ctx.clearRect(0, 0, canvas.height, canvas.width)
+
+
+                // BIRD 
+                ctx.beginPath();
+                ctx.rect(10, y, 100, 100);
+                ctx.fill();
+
+                // TOP TOWER
+               ctx.beginPath();
+               ctx.rect(TowersX, 0, 50, TOWER_HEIGHT); 
+               ctx.fill();
+
+               // BOTTOM TOWER
+               ctx.beginPath();
+               ctx.rect(TowersX, canvas.height - 400, 50, 400); // Bottom tower
+               ctx.fill();
+
+                await new Promise((r) => setTimeout(r, 0.033333 * 1000))
+            }
+            
+        }
+        main();
+    </script>
+</html>
